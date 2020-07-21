@@ -1,0 +1,166 @@
+<script type="text/javascript">
+    RED.nodes.registerType('relay_nf', {
+        category: 'relay',
+        color: '#808080',
+        defaults: {
+            name: {
+                value: ""
+            },
+            mapeamento: {
+                type: "mapping_set_status_nf",
+                value: ""
+            },
+            relay_number: {
+                value: ""
+            },
+            relay_nf_value: {
+                value: ""
+            }
+
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "Relay.svg",
+        label: function() { return this.name? "Single Relay NF - "+ this.name : "Single Relay NF"},
+        paletteLabel: "Single Relay NF",
+
+
+        oneditprepare: function() {
+            var ports = []
+            var self = this
+            var config_mapeamento = RED.nodes.node(this.mapeamento)
+            // console.log(config_mapeamento)
+            if(config_mapeamento){
+                ports = [
+                    { value: config_mapeamento.valuePort9, label: "NF9 | CM9 - " + config_mapeamento.labelPort9, hasValue: false },
+                    { value: config_mapeamento.valuePort10, label: "NF10 | CM10 - " + config_mapeamento.labelPort10, hasValue: false },
+                    { value: config_mapeamento.valuePort11, label: "NF11 | CM11 - " + config_mapeamento.labelPort11, hasValue: false },
+                    { value: config_mapeamento.valuePort12, label: "NF12 | CM12 - " + config_mapeamento.labelPort12, hasValue: false },
+                    { value: config_mapeamento.valuePort13, label: "NF13 | CM13 - " + config_mapeamento.labelPort13, hasValue: false },
+                    { value: config_mapeamento.valuePort14, label: "NF14 | CM14 - " + config_mapeamento.labelPort14, hasValue: false },
+                    { value: config_mapeamento.valuePort15, label: "NF15 | CM15 - " + config_mapeamento.labelPort15, hasValue: false },
+                    { value: config_mapeamento.valuePort16, label: "NF16 | CM16 - " + config_mapeamento.labelPort16, hasValue: false },
+                ];
+            }
+            else{
+                ports = [
+                    { label: "NF9 | CM9", value: "0", hasValue: false },
+                    { label: "NF10 | CM10", value: "1", hasValue: false },
+                    { label: "NF11 | CM11", value: "2", hasValue: false },
+                    { label: "NF12 | CM12", value: "3", hasValue: false },
+                    { label: "NF13 | CM13", value: "5", hasValue: false },
+                    { label: "NF14 | CM14", value: "6", hasValue: false },
+                    { label: "NF15 | CM15", value: "7", hasValue: false },
+                    { label: "NF16 | CM16", value: "8", hasValue: false },
+                ];
+            }
+            $("#node-config-input-port").typedInput({
+                default: self.relay_number,
+                types: ports
+            });
+        },
+        oneditresize: function() {
+            if(!$("#red-ui-header-button-deploy").hasClass("disabled")){
+                $("#node-dialog-ok").click()
+                $("#red-ui-header-button-deploy").click()
+                $("#red-ui-deploy-dialog-confirm-deploy-deploy").click()
+            }
+        },
+        oneditsave: function() {
+            var mytype = $("#node-config-input-port").typedInput('type');
+
+            $("#node-config-input-port").typedInput('value', mytype);
+            this.relay_number = $("#node-config-input-port").typedInput('value');
+        }
+    });
+</script>
+
+
+
+<style>
+
+    label{
+        width: 50% !important;
+        margin-bottom: 2px !important;
+    }
+
+    .columm{
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    hr {
+    width: 40% !important;
+    float: left !important;
+    }
+
+    .hr-div-relayNF{
+        display: flex !important;
+        justify-content: space-between !important;
+        margin-top: 400px !important;
+    }
+
+    .optional{
+        height: max-content !important;
+        margin-top: 10px !important;
+    }
+
+    .descript{
+        text-align: center;
+    }
+
+</style>
+
+<script type="text/html" data-template-name="relay_nf">
+
+    <div class="form-row columm">
+        <strong class="descript">
+         <!-- This Component is used to Open all relay. -->...
+     </strong>
+     </div>
+    <!-- incio do serial -->
+    <div class="form-row columm">
+        <div class="form-row columm">
+        <label for="node-input-relay_number"><i class="fa fa-list-ul"></i> relay number</label>
+        <input type="text" id="node-config-input-port" style="width:62%">
+        <!-- <div style="width:25px; margin-left:265px; margin-top:-34px" selected>
+            <input type="text" id="node-input-mapeamento" placeholder="mapeamento">
+        </div> -->
+    </div>
+    <div class="form-row">
+        <label for="node-input-mapeamento"><i class="fa fa-map"></i> Mapping</label>
+        <input type="text" id="node-input-mapeamento">
+    </div>
+    <div class="form-row columm">
+        <div class="form-row columm" style="margin-top: 8px;">
+
+        <label for="node-input-relay_nf_value"><i class="fa fa-random"></i> relay_value</label>
+        <select id="node-input-relay_nf_value" style="width: 42%">
+        <option value="true">Open</option>
+        <option value="false" selected>Close</option>
+    </select>
+    </div>
+
+
+    <div class="hr-div-relayNF">
+        <hr>
+        <span class="optional">Optional</span>
+        <hr>
+    </div>
+
+    <div class="form-row columm">
+        <label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+
+    <!-- fim do serial -->
+
+    <!-- ponha os elementos graficos HTML entre os espacos -->
+    <!-- Inicio HTML -->
+
+    <!-- Fim HTML -->
+</script>
+
+<script type="text/html" data-help-name="relay_nf">
+    <p>The defalut state is close</p>
+</script>

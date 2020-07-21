@@ -1,0 +1,25 @@
+{
+  "name": "qm-hub-relay-nf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "relay_nf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/modulesQuimera/qm-hub-relay-nf.git"
+  },
+  "keywords": ["quimera", "hub", "JIG"],
+  "author": "HUB-LSE",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/modulesQuimera/qm-hub-relay-nf/issues"
+  },
+  "homepage": "https://github.com/modulesQuimera/qm-hub-relay-nf#readme",
+  "node-red": {
+    "nodes": {
+      "relay_nf": "relay_nf.js"
+    }
+  }
+}
