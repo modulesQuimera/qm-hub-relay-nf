@@ -1,5 +1,5 @@
 {
-  "name": "qm-hub-relay-nf",
+  "name": "qm-relay-nf",
   "version": "1.0.0",
   "description": "",
   "main": "relay_nf.js",
