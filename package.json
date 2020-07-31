@@ -1,6 +1,6 @@
 {
   "name": "qm-relay-nf",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "relay_nf.js",
   "scripts": {
