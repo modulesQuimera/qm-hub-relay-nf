@@ -4,7 +4,7 @@
         color: '#808080',
         defaults: {
             name: {value: ""},
-            mapeamento: {type: "mapping_set_status_nf",value: ""},
+            mapeamento: {type: "relay-mapping",value: ""},
             relay_number: {value: ""},
             relay_nf_value: {value: ""},
 
@@ -56,39 +56,38 @@
                 self.controle = self.controle+1 <= 24 ? self.controle + 1 : 24;
 
                 $(".relayNF"+self.controle).show();
-                console.log(self.controle);
+                
             });
             $("#remRelayNF").click(function(){
                 $(".relayNF"+self.controle).hide();
                 self.controle = self.controle-1 >= 0 ? self.controle - 1 : 0;
-                console.log(self.controle);
+                
             });
-            
+  
             var ports = []
-            var config_mapeamento = RED.nodes.node(this.mapeamento)
-            // console.log(config_mapeamento)
+            var config_mapeamento = RED.nodes.node(this.mapeamento);
             if(config_mapeamento){
                 ports = [
-                    { value: config_mapeamento.valuePort9, label: "NF9 | CM9 - " + config_mapeamento.labelPort9, hasValue: false },
-                    { value: config_mapeamento.valuePort10, label: "NF10 | CM10 - " + config_mapeamento.labelPort10, hasValue: false },
-                    { value: config_mapeamento.valuePort11, label: "NF11 | CM11 - " + config_mapeamento.labelPort11, hasValue: false },
-                    { value: config_mapeamento.valuePort12, label: "NF12 | CM12 - " + config_mapeamento.labelPort12, hasValue: false },
-                    { value: config_mapeamento.valuePort13, label: "NF13 | CM13 - " + config_mapeamento.labelPort13, hasValue: false },
-                    { value: config_mapeamento.valuePort14, label: "NF14 | CM14 - " + config_mapeamento.labelPort14, hasValue: false },
-                    { value: config_mapeamento.valuePort15, label: "NF15 | CM15 - " + config_mapeamento.labelPort15, hasValue: false },
-                    { value: config_mapeamento.valuePort16, label: "NF16 | CM16 - " + config_mapeamento.labelPort16, hasValue: false },
+                    { value: config_mapeamento.valueNF9,  label: `NF9 - PIN 16 (${config_mapeamento.NF9}) | CM9 - PIN 15 (${config_mapeamento.CM9})`, hasValue: false },
+                    { value: config_mapeamento.valueNF10, label: `NF10 - PIN 14 (${config_mapeamento.NF10}) | CM10 - PIN 13 (${config_mapeamento.CM10})`, hasValue: false },
+                    { value: config_mapeamento.valueNF11, label: `NF11 - PIN 12 (${config_mapeamento.NF11}) | CM11 - PIN 11 (${config_mapeamento.CM11})`, hasValue: false },
+                    { value: config_mapeamento.valueNF12, label: `NF12 - PIN 10 (${config_mapeamento.NF12}) | CM12 - PIN 9 (${config_mapeamento.CM12})`, hasValue: false },
+                    { value: config_mapeamento.valueNF13, label: `NF13 - PIN 8 (${config_mapeamento.NF13}) | CM13 - PIN 7 (${config_mapeamento.CM13})`, hasValue: false },
+                    { value: config_mapeamento.valueNF14, label: `NF14 - PIN 6 (${config_mapeamento.NF14}) | CM14 - PIN 5 (${config_mapeamento.CM14})`, hasValue: false },
+                    { value: config_mapeamento.valueNF15, label: `NF15 - PIN 4 (${config_mapeamento.NF15}) | CM15 - PIN 3 (${config_mapeamento.CM15})`, hasValue: false },
+                    { value: config_mapeamento.valueNF16, label: `NF16 - PIN 2 (${config_mapeamento.NF16}) | CM16 - PIN 1 (${config_mapeamento.CM16})`, hasValue: false },
                 ];
             }
             else{
                 ports = [
-                    { label: "NF9 | CM9", value: "0", hasValue: false },
-                    { label: "NF10 | CM10", value: "1", hasValue: false },
-                    { label: "NF11 | CM11", value: "2", hasValue: false },
-                    { label: "NF12 | CM12", value: "3", hasValue: false },
-                    { label: "NF13 | CM13", value: "5", hasValue: false },
-                    { label: "NF14 | CM14", value: "6", hasValue: false },
-                    { label: "NF15 | CM15", value: "7", hasValue: false },
-                    { label: "NF16 | CM16", value: "8", hasValue: false },
+                    { label: "NF9 - PIN 16 | CM9 - PIN 15", value: "0", hasValue: false },
+                    { label: "NF10 - PIN 14 | CM10 - PIN 13", value: "1", hasValue: false },
+                    { label: "NF11 - PIN 12 | CM11 - PIN 11", value: "2", hasValue: false },
+                    { label: "NF12 - PIN 10 | CM12 - PIN 9", value: "3", hasValue: false },
+                    { label: "NF13 - PIN 8 | CM13 - PIN 7", value: "4", hasValue: false },
+                    { label: "NF14 - PIN 6 | CM14 - PIN 5", value: "5", hasValue: false },
+                    { label: "NF15 - PIN 4 | CM15 - PIN 3", value: "6", hasValue: false },
+                    { label: "NF16 - PIN 2 | CM16 - PIN 1", value: "7", hasValue: false },
                 ];
             }
             $("#node-config-input-port").typedInput({
@@ -400,10 +399,6 @@
         <label for="node-input-mapeamento"><i class="fa fa-map"></i>  PCI Connection Map</label>
         <input type="text" id="node-input-mapeamento">
     </div>
-    <!-- <div class="form-row" style="display:flex; justify-content: space-between;">
-        <button  class="btn-uni btn-add"  type="button" id="addRelayNF"> <i class="fa fa-plus" style="margin-right: 5px; font-size: 15px;"></i></button>
-        <button class="btn-uni btn-remove"   type="button" id="remRelayNF"> <i class="fa fa-trash" style="margin-right: 10px; font-size: 15px;"></i></button>
-    </div> -->
     <div class="hr-div-relayNF">
         <hr>
         <span class="optional">Relay 0</span>
